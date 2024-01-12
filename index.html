@@ -53,27 +53,27 @@
         const equal = document.querySelector('.equal');
         const clear = document.querySelector('.clear');
 
-       let formula = 0;
+       
        let equation;
 
         button.forEach(button => button.addEventListener('click', () => {
 
-            if (button.classList.contains('clear')){
+            if (button.classList.contains('clear')){ //If user clicks clear, resets display
                 display.innerText = '';
-                formula = 0;
+                
             }
 
-            else if (button.classList.contains('equal')){
-                let final = display.innerText;
-                equation = final.split(/[\s,]+/);
-                let a = Number(equation[0]);
-                let op = equation[1];
-                let b = Number(equation[2]);
+            else if (button.classList.contains('equal')){ //Runs formula
+                let final = display.innerText;            //sets variable == calc display
+                equation = final.split(/[\s,]+/);         //removes spaces, allows destructuring, and creates an array
+                let a = Number(equation[0]);              //sets a == first array item
+                let op = equation[1];                     //sets op == 2nd array item
+                let b = Number(equation[2]);              //sets b == 3rd array item
                 if (op == '+'){
                     display.innerText = a + b;  //adds
                 }
                 else if (op == '-'){
-                    display.innerText = a - b; // subtractss
+                    display.innerText = a - b; // subtracts
                 }
                 else if (op == '*'){
                     display.innerText = a * b; //mulitplies
@@ -81,75 +81,34 @@
                 else if (op == '/'){
                     display.innerText = a / b; //divides
                 }
+
+                plus.disabled = false;
+                minus.disabled = false;
+                times.disabled = false;
+                divide.disabled = false;
             }
 
-            else if (button.classList.contains('plus') || 
-                    button.classList.contains('minus') || 
-                    button.classList.contains('times') || 
-                    button.classList.contains('divide')){
+            else if (button.classList.contains('plus') || //These parameters allow js to determine
+                    button.classList.contains('minus') || //if any operators were clicked and puts
+                    button.classList.contains('times') || //spaces between them and the numbers to
+                    button.classList.contains('divide')){ //allow the creation of an array later on.
+                
+                const span = document.createElement('span'); // creates and inserts blank span because html doesn't allow trailing spaces
+                span.innerHTML = '&nbsp'; 
+                display.innerText = display.innerText + ' ' + button.innerText;
+                display.appendChild(span);
 
-            const span = document.createElement('span');
-            span.innerHTML = '&nbsp';
-            display.innerText = display.innerText + ' ' + button.innerText;
-            display.appendChild(span);
-            }
+                plus.disabled = true; //Disables operators to prevent calc from breaking.
+                minus.disabled = true;// May add Array that takes all even operators as numbers and odds as operators 
+                times.disabled = true;// to allow for one long formula input
+                divide.disabled = true;
+
+                }
 
             else {
                 display.innerText = display.innerText + button.innerText;
             }
-            }))
-        /*let equation;
-        let finish = false;
-
-        function add(...n){
-
-        }
-
-        function pushButtons(){
-            button.forEach(button => button.addEventListener('click', () => {
-
-                if (button.classList.contains('clear')){
-                    display.innerText = '';
-                    equation = 0
-                    finish = false;
-                }
-
-                else if (button.classList.contains('plus')){
-                    let a = Number(display.innerText);
-                    display.innerText = '';
-                    while (finish = false){
-                        if (button.classList.contains('equal')){
-                            b = Number(display.innerText);
-                            finish = true;
-                        }
-                        else {
-                            pushButtons();
-                        }
-                    }
-                }
-                else if (button.classList.contains('minus')){
-                    let a = Number(display.innerText);
-                    display.innerText = '';
-                    while (finish = false){
-                        if (button.classList.contains('equal')){
-                            b = Number(display.innerText);
-                            finish = true;
-                        }
-                        else {
-                            pushButtons();
-                        }
-                    }
-                }
-
-                else {
-                display.innerText = display.innerText + button.innerText;
-                }
-
-            }))
-        }
-        */
-        
-        
+        }))
     </script>
 </body>
 </html>
