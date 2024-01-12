@@ -60,6 +60,10 @@
 
             if (button.classList.contains('clear')){ //If user clicks clear, resets display
                 display.innerText = '';
+                plus.disabled = false;
+                minus.disabled = false;
+                times.disabled = false;
+                divide.disabled = false;
                 
             }
 
@@ -69,7 +73,11 @@
                 let a = Number(equation[0]);              //sets a == first array item
                 let op = equation[1];                     //sets op == 2nd array item
                 let b = Number(equation[2]);              //sets b == 3rd array item
-                if (op == '+'){
+
+                if (op == '/' && b == 0){
+                    alert("UNDEFINED")
+                }
+                else if (op == '+'){
                     display.innerText = a + b;  //adds
                 }
                 else if (op == '-'){
@@ -106,6 +114,10 @@
                 }
 
             else {
+                if (display.innerText.length > 21){
+                    button.forEach(button => button.disabled = true)
+                display.innerText = 'TOO MANY NUMBERS';
+                }
                 display.innerText = display.innerText + button.innerText;
             }
         }))
